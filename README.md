@@ -77,6 +77,7 @@ server/   xinspect_ai_server.py（RAG＋查表＋拒答閘門＋repair_locators�
 rag/      bm25.py／entities.py（查表與授權閘門）／component_query.py（主機板組件庫查詢）
 eval/     題庫、run_e2e／eval_split／make_questions_hw，以及三次實測的逐題 JSON
 train/    qlora.py（TITAN Xp fp16 LoRA）、export_model.py、package_model.py、verify_model.py
+data/     v5 實際吃進去的 SFT：主訓練 5,626 ＋ 三輪加固 2,128／1,928／2,070（含 valid）
 tools/    make_hw_sft.py／make_nocontext_sft.py／merge_sft.py／convert_hf_to_gguf.py
 corpus/   匯入腳本（Wikipedia wikitext、晶片組模板、型號庫）——不含任何 DB
 modelcard/Modelfile、SYSTEM-PROMPT.txt、run-ollama.cmd
@@ -91,6 +92,21 @@ MODEL-CARD.md / TEST-REPORT.md / NOTICE.md
 加固兩輪 2,070 筆（無資料不報數字、不編出處、一般知識不給數值）
 量化 Q4_K_M（5.12 BPW）
 ```
+
+## 訓練資料
+
+`data/` 就是上面那些數字對應的檔案本體（12 個 JSONL、約 17 MB、共 20,000 餘筆）：
+
+| 用途 | 檔案 | 筆數 |
+|---|---|---|
+| 主訓練 | `sft-train-v2.jsonl` | 5,626（繁中 2,241／简中 1,724／English 1,661） |
+| 主驗證 | `sft-valid-v2.jsonl` | 489 |
+| 加固 v3／v4／v5 | `sft-fix*-train.jsonl` | 2,128／1,928／2,070 |
+| 第一輪與中間產物 | `sft-train.jsonl`、`sft-hw.jsonl`、`sft-nocontext.jsonl` | 1,953／3,996／828 |
+
+格式是 `{"messages":[system,user,assistant]}`。硬體題只放**欄位事實**＋自撰句子＋來源頁名；
+答案刻意有一部分不帶出處，教模型「查不到就講查不到」。
+逐檔說明、來源授權與已知缺點在 [`data/README.md`](data/README.md)。
 
 ## 授權與來源
 
