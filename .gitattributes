@@ -1,0 +1,12 @@
+# 訓練資料要保持位元組原樣：不要做 LF/CRLF 轉換，
+# 否則同一份 JSONL 在不同機器上算出來的 token 數可能不同。
+*.jsonl -text
+*.gguf -text
+*.zip -text
+*.png -text
+
+# 文字檔統一 LF
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.cmd text eol=crlf
