@@ -1,0 +1,37 @@
+{
+  "note": "外部硬體語料的檢索評測。in_domain 是 wiki 段落／規格表真的會涵蓋的題目；out_domain 是同一個語料一定沒有的。用語為英文，因為這批語料是 en.wikipedia。",
+  "in_domain": [
+    {"q": "What is the PCIe 5.0 data rate per lane?", "hint": "wiki.pcie"},
+    {"q": "How many pins does the ATX 24-pin main power connector have?", "hint": "wiki.atx"},
+    {"q": "What is the maximum bandwidth of USB 3.2 Gen 2x2?", "hint": "wiki.usb4"},
+    {"q": "Which Intel microarchitecture is Alder Lake based on?", "hint": "wiki.alderlake"},
+    {"q": "What is the TDP of the Ryzen 9 7950X?", "hint": "wiki.amd.ryzen"},
+    {"q": "How does AMD Zen 4 handle AVX-512?", "hint": "wiki"},
+    {"q": "What is the difference between DisplayPort 1.4 and 2.0?", "hint": "wiki.displayport"},
+    {"q": "What is the M.2 keying for NVMe SSDs?", "hint": "wiki.m2"},
+    {"q": "How fast is Thunderbolt 4 compared to Thunderbolt 3?", "hint": "wiki.thunderbolt"},
+    {"q": "What socket does the Intel Core i9-13900K use?", "hint": "wiki.intel.core"},
+    {"q": "What is the memory bandwidth of DDR5-4800 per channel?", "hint": "wiki"},
+    {"q": "How many PCIe lanes does an EPYC 9004 provide?", "hint": "wiki.amd.epyc"},
+    {"q": "What is ECC memory and which platforms support it?", "hint": "wiki"},
+    {"q": "What does the CPUID instruction return?", "hint": "wiki.cpuid"},
+    {"q": "What is the power consumption of the NVIDIA RTX 4090?", "hint": "wiki.adalovelace"},
+    {"q": "What is the difference between SATA III and NVMe?", "hint": "wiki"},
+    {"q": "What is a PCIe root complex?", "hint": "wiki.pcie"},
+    {"q": "How does the Intel Golden Cove core differ from Skylake?", "hint": "wiki.goldencove"},
+    {"q": "What are the ATX12V power supply versions?", "hint": "wiki.atx"},
+    {"q": "What is the maximum length of a passive Thunderbolt copper cable?", "hint": "wiki.thunderbolt"}
+  ],
+  "out_domain": [
+    {"q": "Who won the 2018 FIFA World Cup?"},
+    {"q": "How do I bake sourdough bread?"},
+    {"q": "What is the capital of Australia?"},
+    {"q": "Write a poem about the ocean."},
+    {"q": "What is the plot of Hamlet?"},
+    {"q": "How many calories are in a banana?"},
+    {"q": "What is the best hiking trail in Norway?"},
+    {"q": "Who painted the Mona Lisa?"},
+    {"q": "How do I learn to play the guitar?"},
+    {"q": "What is the population of Tokyo?"}
+  ]
+}

@@ -1,0 +1,20 @@
+# XinSpect-Ai 1.7B — ChatML 模板（Qwen3 家族）
+# 用法：ollama create xinspect-ai -f Modelfile
+FROM ./xinspect-ai-1.7b-v5-q4_k_m.gguf
+
+TEMPLATE """{{ if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}{{ if .Prompt }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+{{ end }}<|im_start|>assistant
+{{ .Response }}<|im_end|>
+"""
+
+SYSTEM """你是 XinSpect-Ai，曦覽官網的硬體與文件助手。規格要照型號庫或〔資料片段〕回答並附來源；沒有那筆資料就直說查不到，不要憑記憶給數字，也不要編出處。不要把問題再抄一遍，也不要複述規則本身。你不能讀使用者的電腦。"""
+
+PARAMETER stop <|im_start|>
+PARAMETER stop <|im_end|>
+PARAMETER temperature 0.2
+PARAMETER top_p 0.9
+PARAMETER repeat_penalty 1.05
+PARAMETER num_ctx 8192

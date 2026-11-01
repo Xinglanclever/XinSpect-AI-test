@@ -1,0 +1,164 @@
+{
+ "note": "硬體型號與晶片組評測集。expect_all 直接取自 entities.db 的那一列（這支腳本產生，不要手改）：in_domain 要看回答有沒有把值照抄，out_domain 要看有沒有硬答。 dropped 是產生時查不到值而跳過的題，代表資料缺口，不是題目壞。",
+ "generated_from": "eval/make_questions_hw.py",
+ "in_domain": [
+  {
+   "lang": "zh-Hant",
+   "q": "Ryzen 7 9800X3D 的 L3 快取有多大？",
+   "expect_all": [
+    "96"
+   ],
+   "source_row": "Ryzen 7 9800X3D｜l3_cache＝96 MB"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "AMD Ryzen 7 9800X3D 的 TDP 是多少？",
+   "expect_all": [
+    "120"
+   ],
+   "source_row": "Ryzen 7 9800X3D｜tdp_w＝120 W"
+  },
+  {
+   "lang": "en",
+   "q": "What is the boost clock of the Ryzen 7 9800X3D?",
+   "expect_all": [
+    "5.2"
+   ],
+   "source_row": "Ryzen 7 9800X3D｜boost_clock_ghz＝5.2"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "GeForce RTX 4090 的顯示記憶體是多少？",
+   "expect_all": [
+    "24"
+   ],
+   "source_row": "GeForce RTX 4090｜memory_size_gb＝24"
+  },
+  {
+   "lang": "en",
+   "q": "How much VRAM does the GeForce RTX 4090 have?",
+   "expect_all": [
+    "24"
+   ],
+   "source_row": "GeForce RTX 4090｜memory_size_gb＝24"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "EPYC 9654 用哪個插槽？",
+   "expect_all": [
+    "SP5"
+   ],
+   "source_row": "EPYC 9654｜socket＝SP5"
+  },
+  {
+   "lang": "en",
+   "q": "What socket does the EPYC 9654 use?",
+   "expect_all": [
+    "SP5"
+   ],
+   "source_row": "EPYC 9654｜socket＝SP5"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "Ryzen 5 5600X 有幾核心幾執行緒？",
+   "expect_all": [
+    "6"
+   ],
+   "source_row": "Ryzen 5 5600X｜cores＝6 (12)"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "Ryzen 5 3600 的 L3 快取多大？",
+   "expect_all": [
+    "32"
+   ],
+   "source_row": "Ryzen 5 3600｜l3_cache＝32 MB"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "B650 支援哪些 CPU 世代？",
+   "expect_all": [
+    "Zen 4"
+   ],
+   "source_row": "B650｜{'Zen 4': 'Yes', 'Zen 5': 'Yes'}"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "X870E 支援哪些 CPU 世代？",
+   "expect_all": [
+    "Zen 4"
+   ],
+   "source_row": "X870E｜{'Zen 4': 'Yes', 'Zen 5': 'Yes'}"
+  },
+  {
+   "lang": "en",
+   "q": "Which CPU generations does the B650E support?",
+   "expect_all": [
+    "Zen 4"
+   ],
+   "source_row": "B650E｜{'Zen 4': 'Yes', 'Zen 5': 'Yes'}"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "X670E 支援哪些 CPU 世代？",
+   "expect_all": [
+    "Zen 4"
+   ],
+   "source_row": "X670E｜{'Zen 4': 'Yes', 'Zen 5': 'Yes'}"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "Z790 是什麼架構的晶片組？",
+   "expect_all": [
+    "Raptor"
+   ],
+   "source_row": "Z790｜architecture＝Raptor Lake"
+  }
+ ],
+ "out_domain": [
+  {
+   "lang": "zh-Hant",
+   "q": "Intel Core i9-15900K 有幾核心？",
+   "why": "查不到／問題不成立，答了具體數字就算失敗"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "Ryzen 9 7945HX 可以裝在哪張主機板上？",
+   "why": "查不到／問題不成立，答了具體數字就算失敗"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "我的 CPU 現在幾度？",
+   "why": "查不到／問題不成立，答了具體數字就算失敗"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "幫我看一下我这台电脑的 BIOS 版本",
+   "why": "查不到／問題不成立，答了具體數字就算失敗"
+  },
+  {
+   "lang": "en",
+   "q": "What temperature is my CPU running at?",
+   "why": "查不到／問題不成立，答了具體數字就算失敗"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "B650 支援幾條 PCIe 6.0 通道？",
+   "why": "查不到／問題不成立，答了具體數字就算失敗"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "EPYC 9654 的保固是幾年？",
+   "why": "查不到／問題不成立，答了具體數字就算失敗"
+  }
+ ],
+ "dropped": [
+  "Core i9 14900K／cores（型號庫查不到值）",
+  "Core i9 14900K／tdp_w（型號庫查不到值）",
+  "GeForce GTX 1080 Ti／cores（型號庫查不到值）",
+  "Radeon RX 7900 XTX／tdp_w（型號庫查不到值）",
+  "Threadripper PRO 5995WX／cores（型號庫查不到值）",
+  "Core Ultra 7 265K／socket（型號庫查不到值）",
+  "Core Ultra 7 265K／launch_price_usd（型號庫查不到值）"
+ ]
+}

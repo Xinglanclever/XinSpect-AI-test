@@ -1,0 +1,2550 @@
+{
+ "endpoint": "http://127.0.0.1:8793/v1/xinspect/ask",
+ "results": [
+  {
+   "kind": "in",
+   "q": "什麼是六態？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "介面上常說「三態」，實作是六態。\n\n- 為什麼是六態而不是五態。 原本的五態有一個缺口：「有值但我們不確定它算不算數」無處可放。實務上會遇到三種情形需要它：①值來自快取或上一次開機的殘留；②值通過了讀取但來源本身可疑（例如驅動回了預設值而非真實值）；③兩條路徑給了不同答案、還在等第三條仲裁。這三種情形若硬塞進 `Present`，就會被當成已確認的事實——那正是本專案最不該犯的錯。`Unknown` 這個狀態的存在，就是為了不讓未確認的值冒充已確認的值。\n\n- 為什麼是這個順序而不是別的。 這個順序的排法是「對使用者的可操作性」：`Unknown` 排在 `NotApplicable` 之前，因為「有值但未確認」至少還能去查證，而「本機不適用」根本沒有可查的對象；`InsufficientPrivilege` 排在 `NotSupported` 之後，因為前者提權可得、後者換機器才有。這個順序是設計裁決，不是數學推導——它寫在這裡，是為了讓後人知道它是有意選的。\n\n出處：〔README.md:532〕曦覽 XinSpect 百科 › 第 0 部 導讀：這份文件的詞彙、六態、四級可信度與誤差語彙 › 0.3 六態：承認「沒有」有六種，而不是一種",
+   "citations": [
+    {
+     "locator": "README.md:532",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L532-L532"
+    },
+    {
+     "locator": "docs/FEATURE-REFERENCE.md:137",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L137-L137"
+    },
+    {
+     "locator": "手冊.md:1279",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L1279-L1279"
+    },
+    {
+     "locator": "WHITEPAPER.md:13",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L13-L13"
+    }
+   ],
+   "answer_locators": [
+    "README.md:532"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 8.3
+  },
+  {
+   "kind": "in",
+   "q": "事實鍵為什麼固定在編譯期？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "目錄的內容。\n\n出處：〔片段 2〕〔README.md:939〕曦覽 XinSpect 百科 › 第 2 部 系統架構：事實是怎麼被造出來、被守住、被送出去的 › 2.5 事實鍵目錄：1,166 把鍵為什麼要固定在編譯期",
+   "citations": [
+    {
+     "locator": "README.md:939",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L939-L939"
+    },
+    {
+     "locator": "手冊.md:1872",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L1872-L1872"
+    }
+   ],
+   "answer_locators": [
+    "README.md:939"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.3
+  },
+  {
+   "kind": "in",
+   "q": "版本 3.05 改了什麼？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "理由是這個頁面的目的：先把「這個程式自己是什麼」講清楚，再談外面的工具。\n\n出處：〔片段 4〕docs/RELEASE-NOTES-3.05.md:31",
+   "citations": [
+    {
+     "locator": "docs/RELEASE-NOTES-3.05.md:31",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/RELEASE-NOTES-3.05.md#L31-L31"
+    }
+   ],
+   "answer_locators": [
+    "docs/RELEASE-NOTES-3.05.md:31"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 0.8
+  },
+  {
+   "kind": "in",
+   "q": "安全開機的 PK、KEK、db、dbx 各是什麼？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- **在回答什麼。** 「開機信任鏈的鑰匙與映像結構」：PK／KEK／db／dbx／dbt 的存在與計數、Secure Boot 狀態與模式、開機項目的落差、映像解析（PE 檔、區段樹、壓縮支援）、以及**解析的寬容度與落差申報**（`uefi.parse.gaps`／`uefi.parse.tolerant`）。\n\n出處：〔片段 2〕README.md:10412 外部資料 › 第 15 部 建置、發佈、簽章與貢獻 › 附錄 A 詞彙表",
+   "citations": [
+    {
+     "locator": "手冊.md:2685",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L2685-L2723"
+    },
+    {
+     "locator": "README.md:10412",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L10412-L10425"
+    },
+    {
+     "locator": "docs/RELEASE-NOTES-3.04.md:19",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/RELEASE-NOTES-3.04.md#L19-L23"
+    }
+   ],
+   "answer_locators": [
+    "README.md:10412"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 2.1
+  },
+  {
+   "kind": "in",
+   "q": "曦覽讀 MSR 的封裝溫度走哪條路徑？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "| 硬體層 | 繞過作業系統直接與硬體通訊所得的讀值（MSR、PCI 設定空間、SMBus、SMART、NVMe、Super I/O、CMOS）。可信層級為 `Measured`。 |\n\n出處：〔WHITEPAPER.md:4135〕附錄 H、詞彙表 › 來源與讀取",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.md:4135",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L4135-L4145"
+    }
+   ],
+   "answer_locators": [
+    "WHITEPAPER.md:4135"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.1
+  },
+  {
+   "kind": "in",
+   "q": "為什麼不用內建金鑰連接 AI？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "曾實測卡 IRP（I/O 請求封包），可能讓磁碟命令逾時；SMART_RCV_DRIVE_DATA 由 disk.\n\n出處：〔片段 1〕〔手冊.md:2510〕曦覽 XinSpect › 二十三、常見問題",
+   "citations": [
+    {
+     "locator": "手冊.md:2510",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L2510-L2510"
+    },
+    {
+     "locator": "README.zh-CN.md:2530",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L2530-L2530"
+    }
+   ],
+   "answer_locators": [
+    "手冊.md:2510"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 0.8
+  },
+  {
+   "kind": "in",
+   "q": "安裝之後會寫入哪些資料夾？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "本程式自己的資料夾（`%APPDATA%\\XinSpect`）：設定、歷史倉（`history.bin`，一個月約數 MB）、迷你監視器位置等。\n\n- 讀不到那一行要怎麼辦：文件裡沒有寫到這件事。\n- 本程式自己的資料夾（`%APPDATA%\\XinSpect`）：設定、歷史倉（`history.bin`，一個月約數 MB）、迷你監視器位置等。刪掉這個資料夾就回到全新狀態。\n\n出處：〔手冊.md:2618〕曦覽 XinSpect › 附錄 D、疑難排解",
+   "citations": [
+    {
+     "locator": "README.md:1527",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1527-L1529"
+    },
+    {
+     "locator": "手冊.md:2618",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L2618-L2618"
+    }
+   ],
+   "answer_locators": [
+    "手冊.md:2618"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.5
+  },
+  {
+   "kind": "in",
+   "q": "時間膠囊快照的格式長什麼樣？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "時間膠囊是快照的序列化容器，其格式為 `docs/spec/snapshot.\n\n- 自己驗證：建立兩份快照，改一個檔案的一個位元組，載入時會拒載；`--json evidence` 與時間膠囊共用同一形狀。\n- 快照不是備份。 它不含驅動、不含設定、不含使用者資料；它只描述「那一刻讀到了什麼」。\n- 快照不是即時狀態。 一份三天前的快照，溫度仍然是三天前的溫度；介面必須把它放在「快照」而不是「即時」區。\n\n出處：〔片段 3〕〔手冊.md:1737〕曦覽 XinSpect › 十七、獨特功能解剖 › 17.4 時間膠囊與差分：讓「昨天」可以被重放",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.md:947",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L947-L947"
+    },
+    {
+     "locator": "docs/FEATURE-REFERENCE.md:782",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L782-L782"
+    },
+    {
+     "locator": "手冊.md:1737",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L1737-L1737"
+    },
+    {
+     "locator": "README.md:8569",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L8569-L8569"
+    },
+    {
+     "locator": "WHITEPAPER.zh-CN.md:947",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.zh-CN.md#L947-L947"
+    }
+   ],
+   "answer_locators": [
+    "手冊.md:1737"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 2.0
+  },
+  {
+   "kind": "in",
+   "q": "突變測試在這個專案裡做什麼？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "突變測試（mutation testing，用程式自動改動原始碼，看測試會不會紅）在這個專案上的分數是 82%，但只覆蓋純解碼器。\n\n界線：**這個域在問什麼。** 「這個專案自己的品質門檻：測試、覆蓋、文件、效能、突變、語意版本。」它不是硬體事實，是專案事實，用來防止「功能做了但沒人知道」。\n\n出處：〔手冊.md:1416〕曦覽 XinSpect › 二、設計原則 › 2.4 突變測試",
+   "citations": [
+    {
+     "locator": "手冊.md:1416",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L1416-L1416"
+    },
+    {
+     "locator": "README.md:776",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L776-L776"
+    },
+    {
+     "locator": "README.zh-CN.md:1422",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L1422-L1422"
+    },
+    {
+     "locator": "docs/FEATURE-REFERENCE.md:1192",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L1192-L1192"
+    }
+   ],
+   "answer_locators": [
+    "手冊.md:1416"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.6
+  },
+  {
+   "kind": "in",
+   "q": "NVMe 電源狀態離開延遲怎麼量？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- 定位。 固态硬盘闲着时会降到省电状态，被唤醒要先付出「离开延迟」——所以闲置之后的第一笔读取特别慢。这一页把碟宣告的电源状态表与实际量到的耗时摆在一起。\n\n出處：〔片段 1〕曦覽 XinSpect 百科 › 第 3 部 功能地圖：63 個可到達畫面逐頁解剖 › 3.28 NVMe 電源狀態（`nvmepower`）",
+   "citations": [
+    {
+     "locator": "README.md:1573",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1573-L1573"
+    },
+    {
+     "locator": "手冊.md:997",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L997-L997"
+    },
+    {
+     "locator": "docs/FEATURE-REFERENCE.md:736",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L736-L736"
+    },
+    {
+     "locator": "README.zh-CN.md:1003",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L1003-L1003"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 1.8
+  },
+  {
+   "kind": "in",
+   "q": "授權條款是什麼？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "本專案以 AGPL-3.0-or-later 授權發佈。本文件為專案文件之一部分，適用相同授權條款。\n\n出處：〔WHITEPAPER.md:75〕曦覽 XinSpect 技術白皮書 › 授權",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.md:75",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L75-L75"
+    },
+    {
+     "locator": "Nav/ChangelogCatalog.cs",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/Nav/ChangelogCatalog.cs"
+    },
+    {
+     "locator": "WHITEPAPER.zh-CN.md:75",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.zh-CN.md#L75-L75"
+    },
+    {
+     "locator": "手冊.md:2520",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L2520-L2520"
+    },
+    {
+     "locator": "README.zh-CN.md:2540",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L2540-L2540"
+    }
+   ],
+   "answer_locators": [
+    "WHITEPAPER.md:75"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 0.9
+  },
+  {
+   "kind": "in",
+   "q": "曦览有哪些已知限制？",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "以下限制分三类：设计裁决（不是待办）、能力边界、环境相依。\n\n出处：〔README.zh-CN.md:1529〕曦览 XinSpect › 十五、已知限制",
+   "citations": [
+    {
+     "locator": "README.zh-CN.md:1529",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L1529-L1529"
+    },
+    {
+     "locator": "WHITEPAPER.zh-CN.md:1253",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.zh-CN.md#L1253-L1253"
+    }
+   ],
+   "answer_locators": [
+    "README.zh-CN.md:1529"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 0.7
+  },
+  {
+   "kind": "in",
+   "q": "什么是事实键目录？",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "边界：目录只保证「这些键存在」，不保证「每个键的语意写对了」。\n\n出处：〔片段 1〕〔README.zh-CN.md:1883〕曦览 XinSpect › 十八、同业对照 › 17.12 事实键目录：1,044 个键与 139 个前缀",
+   "citations": [
+    {
+     "locator": "README.zh-CN.md:1883",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L1883-L1883"
+    }
+   ],
+   "answer_locators": [
+    "README.zh-CN.md:1883"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.0
+  },
+  {
+   "kind": "in",
+   "q": "为什么这个工具是只读优先的？",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "覆盖申报要回答的问题是「哪些事实被规则碰到了」。\n\n出处：〔片段 1〕〔WHITEPAPER.zh-CN.md:3771〕第八部　规格库与治理文档 › 第六十二章　统一管线：集成优先、调度最后 › 62.2 为什么这个缺陷只有发布版看得出来",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.zh-CN.md:3771",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.zh-CN.md#L3771-L3771"
+    },
+    {
+     "locator": "README.zh-CN.md:2530",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L2530-L2530"
+    },
+    {
+     "locator": "WHITEPAPER.md:3771",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L3771-L3771"
+    }
+   ],
+   "answer_locators": [
+    "WHITEPAPER.zh-CN.md:3771"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 0.9
+  },
+  {
+   "kind": "in",
+   "q": "怎么用命令行导出证据？",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "保存可靠性的事实服务有服务、有七条单元测试（注入假来源，全绿）、事实键也加了目录、共用事实集合与报告导出都把它串了进去——但全项目没有任何一处调用它的加载方法。\n\n出处：〔WHITEPAPER.zh-CN.md:3933〕第八部　规格库与治理文档 › 第六十四章　四个「测试全绿但功能无效」的缺陷 › 64.2 缺陷一：集成没接线",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.zh-CN.md:3933",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.zh-CN.md#L3933-L3933"
+    }
+   ],
+   "answer_locators": [
+    "WHITEPAPER.zh-CN.md:3933"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.1
+  },
+  {
+   "kind": "in",
+   "q": "测试数量有多少？",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "第一类：单元测试。\n\n出处：〔片段 1〕〔WHITEPAPER.zh-CN.md:2009〕第七部　工程实践 › 第四十一章　测试策略 › 41.1 测试的分类与其适用范围\n\n边界：其局限是只能验证被测到的输入组合，且其正确性依赖测试本身对行为的理解是否正确。",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.zh-CN.md:2009",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.zh-CN.md#L2009-L2009"
+    },
+    {
+     "locator": "README.zh-CN.md:392",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L392-L402"
+    }
+   ],
+   "answer_locators": [
+    "WHITEPAPER.zh-CN.md:2009"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.0
+  },
+  {
+   "kind": "in",
+   "q": "How do I install XinSpect and what are the requirements?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "Portable: run `XinSpect.exe`. It does not write to an install directory, modify PATH, or register services.\n\n- To remove: close the program, delete those folders. If deep access was enabled, turn it off in Settings first (stops and deletes the service, removes only its own CA), then delete the files.\n\n界线：Netdisks have no stable direct link, so option 3 only opens the browser and tells you what to click - it never saves the share page as a fake exe.\n\n出处：〔README.en.md:284〕 XinSpect › 4. Download and requirements › 4.3 Install and remove",
+   "citations": [
+    {
+     "locator": "README.en.md:284",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L284-L284"
+    }
+   ],
+   "answer_locators": [
+    "README.en.md:284"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.6
+  },
+  {
+   "kind": "in",
+   "q": "What are the six availability states?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "Every fact carries an `availability` field with six values:\n\n- A Super I/O fan counter of 0 or 0xFFFF is invalid per the ITE specification (stopped or unconnected); the program prints \"invalid counter\" instead of converting it to 0 RPM.\n- When both DWORDs of the registry microcode revision are non-zero, the layout is ambiguous; the program prints \"ambiguous — not decoded\" with the raw hex for manual review.\n- An NVMe WCTEMP (warning composite temperature) of 0 means the controller did not provide it; the program says \"not provided\" instead of comparing against 0.\n\n出处：〔片段 2〕README.en.md:120〔XinSpect › 2. Design principles › 2.1 Six states and lattice propagation〕",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.en.md:556",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.en.md#L556-L556"
+    },
+    {
+     "locator": "README.en.md:120",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L120-L120"
+    }
+   ],
+   "answer_locators": [
+    "README.en.md:120"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.8
+  },
+  {
+   "kind": "in",
+   "q": "Why is the fact key catalogue frozen at compile time?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "The design has a direct cause: an earlier implementation scanned `Services/` at runtime.\n\n出处：〔片段 1〕WHITEPAPER.en.md:335〔Part III — Reconciliation › 10. Coverage, the key catalogue and dynamic families › 10.1 Why the catalogue exists〕",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.en.md:335",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.en.md#L335-L335"
+    }
+   ],
+   "answer_locators": [
+    "WHITEPAPER.en.md:335"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.2
+  },
+  {
+   "kind": "in",
+   "q": "Does XinSpect send any data to the internet?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- Token usage is shown from what the endpoint reports (input/output/total, plus a session total); when an endpoint reports nothing the line says so instead of printing 0 — this program never estimates tokens, because an estimate assumes a tokenizer the model may not use.\n\n- Embedded browser boundary: In-page find (toolbar 🔍 or Ctrl+F; Enter next, Shift+Enter previous, Esc closes) drives `window.find` through a JSON-encoded literal so a search term can never become script — that page runs under the administrator token. DevTools is off by default (this process holds an administrator token; set `XINSPECT_BROWSER_DEVTOOLS=1` to enable it for debugging), and zoom is managed by the page itself between 50% and 200%. Only `http`/`https` are navigable — `file://`, `javascript:`, `data:`, `about:` and custom schemes are blocked with a stated reason (a page that can load a local path can display this machine's files). Downloads land in `%LOCALAPPDATA%\\XinSpect\\Downloads`, never overwrite a\n\n出处：README.en.md:691 XinSpect › 14. Privacy and data sovereignty",
+   "citations": [
+    {
+     "locator": "README.en.md:691",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L691-L697"
+    }
+   ],
+   "answer_locators": [
+    "README.en.md:691"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 2.4
+  },
+  {
+   "kind": "in",
+   "q": "What is the offset and error vocabulary used in the docs?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- SMART attributes and thresholds (failing-now): READ DATA (features 0xD0) for 30 attributes (ID, current, worst, raw six bytes); READ THRESHOLDS (features 0xD1) for the threshold table. \"Current ≤ threshold and threshold ≠ 0\" is failing-now, printed per item as \"current X ≤ threshold Y.\" Threshold 0 means no threshold per the SMART specification and is excluded. Reallocated sectors (0x05), pending sectors (0xC5) and uncorrectable sectors (0xC6) get separate health verdicts.\n- NVMe: full health log (page 0x02) — composite temperature, available spare, percentage used, data units read/written; WCTEMP warning (Identify Controller offset 0x14A, u16 compared with composite temperature; 0 = not provided); error log (page 0x01); power-state table (per-state power and entry/exit latency) compared with a measured \"first 4K read after N ms idle\" — only when both are the same order of magnitude is the delay attributed to power saving.\n- HPA hidden capacity: ATA IDENTIFY maximum LBA (words 100–103) vs Win32_DiskDrive.Size — if the OS sees less than the firmware declares, HPA is active; converts to hidden sectors and GB. Direct evidence of a refurbished or capacity-faked drive. DCO (Device Configuration Overlay) needs vendor-private commands (no public usermode path), so it is `NotSupported` with the reason.\n- Surface scan: sequential reads block by block (1 MB default, con\n\n界線：Threshold 0 means no threshold per the SMART specification and is excluded.\n\n出处：〔README.en.md:388〕XinSpect › 6. Features in detail › 6.5 Storage",
+   "citations": [
+    {
+     "locator": "README.en.md:388",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L388-L393"
+    }
+   ],
+   "answer_locators": [
+    "README.en.md:388"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 3.6
+  },
+  {
+   "kind": "in",
+   "q": "How does the Deep Bench work?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- Boundary: no cross-domain ranking, no cross-version comparison, background work affects results.\n\n- Quick vs Full is not \"accurate vs inaccurate\"; it changes sampling length, repetition and item mix. Quick answers \"roughly what class is this machine\"; Full is suitable for a verification report.\n- Every item carries confidence: `Insufficient` means the samples cannot support the item's conclusion (timer resolution, sample count, failed self-validation). Do not cite an `Insufficient` number.\n- early/late retention: throughput in the first versus the last window of a long run. A large drop suggests thermal or power limits; it is a fingerprint, not a root cause.\n- Cross-machine comparison requires the same item, settings and version. Algorithms change between versions; numbers are not comparable across them.\n\n出处：〔README.en.md:843〕 XinSpect › 7. Deep Bench (38-item Run Session) › 7.2 How to read it",
+   "citations": [
+    {
+     "locator": "README.en.md:843",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L843-L843"
+    }
+   ],
+   "answer_locators": [
+    "README.en.md:843"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 2.7
+  },
+  {
+   "kind": "in",
+   "q": "為什麼查不到不等於沒有？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "這條規則也適用於畫面：事實總表頁的分母是編譯期目錄而不是「這一輪掃到什麼」，缺席一律標「本次未收集」，且不猜是哪一種原因。\n\n出處：〔片段 3〕README.md:782 › 曦覽 XinSpect 百科 › 第 1 部 定位與設計原則 › 1.13 查不到不等於沒有",
+   "citations": [
+    {
+     "locator": "README.md:782",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L782-L782"
+    },
+    {
+     "locator": "手冊.md:176",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L176-L176"
+    },
+    {
+     "locator": "README.zh-CN.md:176",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L176-L176"
+    }
+   ],
+   "answer_locators": [
+    "README.md:782"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.4
+  },
+  {
+   "kind": "in",
+   "q": "語料貢獻包上傳前要做哪些去識別化？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "只收遮蔽版快照：`sensitiveValuesPreserved = true` 的快照拒收（`Build` 回 null）——\n\n- 身份鍵逐鍵排除：key 含 `serial`／`uuid`／`mac`／`asset.tag`／`system.product`／`user.`\n- 匿名機器識別保留：單向雜湊派生的 `anonymousMachineId` 是貢獻包的價值所在\n\n出處：〔片段 1〕〔docs/spec/corpus-upload.v1.md:8〕曦覽 XinSpect › 十二、公開規格與文件 › 12.1 五份規格文件的導讀順序",
+   "citations": [
+    {
+     "locator": "docs/spec/corpus-upload.v1.md:8",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/spec/corpus-upload.v1.md#L8-L13"
+    },
+    {
+     "locator": "手冊.md:1341",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L1341-L1348"
+    }
+   ],
+   "answer_locators": [
+    "docs/spec/corpus-upload.v1.md:8"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.7
+  },
+  {
+   "kind": "in",
+   "q": "ACPI 的 HEST 表解了哪些欄位？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "表解碼的誤差幾乎都來自語意版本：同一簽章在規格不同版本裡欄位有增補。\n\n出處：〔README.md:2231〕曦覽 XinSpect 百科 › 第 6 部 數據辭典：155 個域、1,166 把鍵 › 6.2 最大的十二個域：逐域判讀要點 › 6.2.1 `ac` — ACPI 表與韌體介面（61 把）",
+   "citations": [
+    {
+     "locator": "README.md:2231",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L2231-L2231"
+    }
+   ],
+   "answer_locators": [
+    "README.md:2231"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.3
+  },
+  {
+   "kind": "in",
+   "q": "i7-12700K 的規格是什麼？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- Core i7 12700K（Wikipedia：List of Intel processors）：Core i7；12700K；8 (16)；4 (4)；12 (20)；3.6；2.7；4.9；3.8；5.0；UHD 770；1.5 GHz；32；12 MB；14 MB；30 MB；25 MB；125；190；$ 409；Q1 2022；Q4 2021",
+   "citations": [
+    {
+     "locator": "cpu_model Core i7 12700K",
+     "url": "https://en.wikipedia.org/wiki/List of Intel processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "GTX 1080 Ti 幾 CUDA 核心？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- GeForce GTX 1080 Ti（Wikipedia：lib:GeForce 10 series）：architecture GP102-350-K1-A1；process_nm 16；transistors_m 12.0；die_size_mm2 471；interface PCIe 3.0 ×16；core_config 3584:224:88；l2_cache 2816；base_clock_mhz 1480；boost_clock_mhz 1582；memory_size_gb 11；bandwidth_gbs 484；memory_types GDDR5X；memory_bus_bits 352；tdp_w 250；launch_price_usd 699；原文:Launch Mar 10, 2017；原文:SM count 28；原文:Clock speeds Memory (MT/s) 11000；原文:Fillrate Pixel (GP/s) 130.2；原文:Fillrate Texture (GT/s) 331.5；原文:SLI HB support 2-way SLI HB or 2/3/4-way SLI；原文:Launch MSRP (USD) Founders Edition 699（另有 3 個欄位欄名與值不符，已略過）",
+   "citations": [
+    {
+     "locator": "gpu_model GeForce GTX 1080 Ti",
+     "url": "https://en.wikipedia.org/wiki/lib:GeForce 10 series"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "Ryzen 9 7950X3D 幾核心幾執行緒？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- Ryzen 9 7950X3D（Wikipedia：lib:List of AMD Ryzen processors）：cores (threads) 16 (32)；base_clock_ghz 4.2；boost_clock_ghz 5.7；l3_cache 128 MB；core_config 2 × 8；tdp_w 120 W；release_date Feb 28, 2023；launch_price_usd US $699；原文:Branding and model Branding and model.1 7950X3D；原文:Chiplets 2 × CCD 1 × I/OD；原文:Thermal solution —N/a",
+   "citations": [
+    {
+     "locator": "cpu_model Ryzen 9 7950X3D",
+     "url": "https://en.wikipedia.org/wiki/lib:List of AMD Ryzen processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "RX 7900 XTX 的顯存是多少？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- Radeon RX 7900 XTX（Wikipedia：Radeon RX 7000 series）：Radeon RX 7900 XTX (Navi 31)；Dec 13, 2022 $999 USD；RDNA 3 TSMC N5 (GCD) TSMC N6 (MCD)；1 × GCD 6 × MCD；57.7×10 529 mm；6144:384:192:96:192 96 CU；1900 2500；729.6 960.0；364.8 480.0；46.69 61.44；46.69 61.44；0.730 0.960；96 MB；3500；24 GB；960；GDDR6 384-bit；20000；355 W",
+   "citations": [
+    {
+     "locator": "gpu_model Radeon RX 7900 XTX",
+     "url": "https://en.wikipedia.org/wiki/Radeon RX 7000 series"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "EPYC 9654 幾核心？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- EPYC 9654（Wikipedia：lib:Epyc）：process_nm TSMC N5；cores (threads) 96 (192)；core_config 12 × 8；base_clock_ghz 2.4；boost_clock_ghz 3.7；l1_cache 6；l2_cache 96；l3_cache 384；socket SP5；pcie_lanes 128；memory_types DDR5-4800 twelve-channel；tdp_w 360 W；release_date Nov 10, 2022；launch_price_usd $11,805；原文:Chiplets 12 × CCD 1 × I/OD；原文:Socket count 1P/2P",
+   "citations": [
+    {
+     "locator": "cpu_model EPYC 9654",
+     "url": "https://en.wikipedia.org/wiki/lib:Epyc"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "What is the TDP of the Core i5-12400F?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "This is a table lookup, not a guess:\n- Core i5 12400F（Wikipedia：List of Intel processors）：Core i5；12400F；6 (12)；2.5；6 (12)；4.4；4.4；$ 167",
+   "citations": [
+    {
+     "locator": "cpu_model Core i5 12400F",
+     "url": "https://en.wikipedia.org/wiki/List of Intel processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "現在幾點？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "| 時鐘 | 用途 | 不可用於 |\n|---|---|---|\n| 單調鐘（`Stopwatch`／QPC） | 經過時間、延遲、逾時預算 | 「幾點」、跨重啟的比較 |\n| 牆鐘 | 時間戳標示、審計日誌、版本沿革 | 經過時間（會被 NTP 校時與使用者改時間影響） |\n\n出處：〔README.md:823〕曦覽 XinSpect 百科 › 第 5 部 量測方法學：數字是怎麼算出來的、誤差從哪裡來 › 5.6 時間源：三種時鐘，不能混用",
+   "citations": [
+    {
+     "locator": "手冊.md:263",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L263-L263"
+    },
+    {
+     "locator": "README.md:823",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L823-L823"
+    },
+    {
+     "locator": "README.zh-CN.md:263",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.zh-CN.md#L263-L263"
+    }
+   ],
+   "answer_locators": [
+    "README.md:823"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.8
+  },
+  {
+   "kind": "out",
+   "q": "今天台北天氣如何？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦覽的文件裡沒有寫到這個問題，硬體 ID 對照表裡也沒有查到對應的項目。我查了百科、技術白皮書、手冊與版本沿革，沒有對得上的段落——所以我不會用猜的補一個答案。你可以換個問法，或直接問曦覽讀哪些資料、有哪些事實鍵。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "幫我寫一首關於秋天的詩。",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦覽的文件裡沒有寫到這個問題，硬體 ID 對照表裡也沒有查到對應的項目。我查了百科、技術白皮書、手冊與版本沿革，沒有對得上的段落——所以我不會用猜的補一個答案。你可以換個問法，或直接問曦覽讀哪些資料、有哪些事實鍵。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "今天股市怎麼樣？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦覽的文件裡沒有寫到這個問題，硬體 ID 對照表裡也沒有查到對應的項目。我查了百科、技術白皮書、手冊與版本沿革，沒有對得上的段落——所以我不會用猜的補一個答案。你可以換個問法，或直接問曦覽讀哪些資料、有哪些事實鍵。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "推薦一台兩萬塊以內的筆電。",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦覽的文件裡沒有寫到這個問題，硬體 ID 對照表裡也沒有查到對應的項目。我查了百科、技術白皮書、手冊與版本沿革，沒有對得上的段落——所以我不會用猜的補一個答案。你可以換個問法，或直接問曦覽讀哪些資料、有哪些事實鍵。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "什么是量子力学？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦览的文档里没有写到这个问题，硬件 ID 对照表里也没有查到对应的项目。我查了百科、技术白皮书、手册与版本沿革，没有对得上的段落——所以我不会用猜的补一个答案。你可以换个问法，或直接问曦览读哪些数据、有哪些事实键。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "如何減肥？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦覽的文件裡沒有寫到這個問題，硬體 ID 對照表裡也沒有查到對應的項目。我查了百科、技術白皮書、手冊與版本沿革，沒有對得上的段落——所以我不會用猜的補一個答案。你可以換個問法，或直接問曦覽讀哪些資料、有哪些事實鍵。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "推薦好吃的餐廳。",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦覽的文件裡沒有寫到這個問題，硬體 ID 對照表裡也沒有查到對應的項目。我查了百科、技術白皮書、手冊與版本沿革，沒有對得上的段落——所以我不會用猜的補一個答案。你可以換個問法，或直接問曦覽讀哪些資料、有哪些事實鍵。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "幫我寫一段 Python 快速排序。",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦覽的文件裡沒有寫到這個問題，硬體 ID 對照表裡也沒有查到對應的項目。我查了百科、技術白皮書、手冊與版本沿革，沒有對得上的段落——所以我不會用猜的補一個答案。你可以換個問法，或直接問曦覽讀哪些資料、有哪些事實鍵。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "帮我订一张明天去上海的机票。",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦览的文档里没有写到这个问题，硬件 ID 对照表里也没有查到对应的项目。我查了百科、技术白皮书、手册与版本沿革，没有对得上的段落——所以我不会用猜的补一个答案。你可以换个问法，或直接问曦览读哪些数据、有哪些事实键。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "苹果公司的市值是多少？",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦览的文档里没有写到这个问题，硬件 ID 对照表里也没有查到对应的项目。我查了百科、技术白皮书、手册与版本沿革，没有对得上的段落——所以我不会用猜的补一个答案。你可以换个问法，或直接问曦览读哪些数据、有哪些事实键。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "How tall is Mount Everest?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "Who won the 2018 World Cup?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "Write me a cover letter for a marketing job.",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "What is the capital of Australia?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "Which are installed is an installation fact about this machine, and a Core installation can carry dozens of roles; names contain capitals and hyphens and therefore do not satisfy the catalogue's key-format rule, so they must travel as a family.\n\nSource: WHITEPAPER.en.md:2745 Appendix B — Dynamic key families",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.en.md:2745",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.en.md#L2745-L2769"
+    }
+   ],
+   "answer_locators": [
+    "WHITEPAPER.en.md:2745"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 0.9
+  },
+  {
+   "kind": "out",
+   "q": "Translate 'good morning' into Japanese.",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "Give me a recipe for beef noodle soup.",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.1
+  },
+  {
+   "kind": "out",
+   "q": "這台電腦現在 CPU 幾度？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "machine-specific",
+   "answer": "這個網站讀不到你的電腦。官網只呈現說明，不掃描任何機器——所以「你這台現在幾度、跑多快、健康不健康」在這裡沒有答案，任何看起來像讀值的數字都不可能是你的實測。\n\n要拿到你自己機器的讀值，得在 Windows 上跑曦覽桌面版。它把同一項性質分成硬體、韌體、作業系統三份陳述並列，讀不到的會給原因而不是給 0。下面幾段是文件裡實際寫到讀取路徑的地方，可以對著看桌面版哪一頁會出現你要的數字。",
+   "citations": [
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L394-L394"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L678-L678"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L388-L388"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L373-L382"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "我的電腦配置是什麼？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "machine-specific-config",
+   "answer": "這個網站讀不到你的電腦，所以沒有你的配置清單——任何看起來像「你的規格」的數字都不可能是你的實測。\n\n你自己的配置在桌面版的「我的電腦」那一頁：CPU 型號與代數、主機板與 BIOS、記憶體容量與插槽、顯示卡與驅動版本、儲存裝置、作業系統版本。每一項都對應一把事實鍵（asset.identify／cpu.*／gpu.*／mem.*／sb.type*／os.*），讀不到的會寫讀不到的原因，不會填 0。\n\n如果你要問的是「曦覽要什麼配置才跑得動」，那是文件裡真的有寫的內容，直接問「曦覽的系統需求」就有答案。",
+   "citations": [
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1070-L1070"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L247-L252"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1072-L1072"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L2451-L2451"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "這台電腦的顯示卡是哪一張？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "machine-specific-config",
+   "answer": "這個網站讀不到你的電腦，所以沒有你的配置清單——任何看起來像「你的規格」的數字都不可能是你的實測。\n\n你自己的配置在桌面版的「我的電腦」那一頁：CPU 型號與代數、主機板與 BIOS、記憶體容量與插槽、顯示卡與驅動版本、儲存裝置、作業系統版本。每一項都對應一把事實鍵（asset.identify／cpu.*／gpu.*／mem.*／sb.type*／os.*），讀不到的會寫讀不到的原因，不會填 0。\n\n如果你要問的是「曦覽要什麼配置才跑得動」，那是文件裡真的有寫的內容，直接問「曦覽的系統需求」就有答案。",
+   "citations": [
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1070-L1070"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L247-L252"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1072-L1072"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L2451-L2451"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "我这台电脑的内存有多少？",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "machine-specific-config",
+   "answer": "这个网站读不到你的电脑，所以没有你的配置清单——任何看起来像「你的规格」的数字都不可能是你的实测。\n\n你自己的配置在桌面版的「我的电脑」那一页：CPU 型号与代数、主板与 BIOS、内存容量与插槽、显卡与驱动版本、存储设备、操作系统版本。每一项都对应一把事实键（asset.identify／cpu.*／gpu.*／mem.*／sb.type*／os.*），读不到的会写读不到的原因，不会填 0。\n\n如果你要问的是「曦览要什么配置才跑得动」，那是文档里真的有写的内容，直接问「曦览的系统需求」就有答案。",
+   "citations": [
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1070-L1070"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L247-L252"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1072-L1072"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L2451-L2451"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "What are my PC specs?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "machine-specific-config",
+   "answer": "This website cannot read your computer, so there is no spec sheet for it here, and no number that looks like your configuration can be yours.\n\nYour own configuration is on the desktop app's \"My PC\" page: CPU model and generation, board and BIOS, memory size and slots, GPU and driver version, storage, OS build. Each row maps to a fact key (asset.identify / cpu.* / gpu.* / mem.* / sb.type* / os.*); anything unreadable reports the reason instead of a zero.\n\nIf you meant \"what does XinSpect need to run\", that is in the documentation: ask for the system requirements.",
+   "citations": [
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1070-L1070"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L247-L252"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L1072-L1072"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L2451-L2451"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "How hot is my CPU right now?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "machine-specific",
+   "answer": "This website cannot read your computer. The site only describes the software; it never scans a machine. So there is no answer here for \"how hot or fast is my PC right now\", and no number that looks like a reading can be yours.\n\nTo get readings from your own machine, run the XinSpect desktop app on Windows. It lays the hardware, firmware and OS accounts of the same property side by side, and gives a reason instead of a zero when something cannot be read. The passages below are where the documentation actually describes the read paths.",
+   "citations": [
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L394-L394"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L678-L678"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L388-L388"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L373-L382"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "曦覽會不會上傳我的資料？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "A：檢視模式零網路。唯一向你而外的動作是「檢查更新」這類由你觸發的功能；匯出與報告全部落在本機。\n\n界線：**會收集我的資料嗎？** 不會。事實蒐集層零網路 API（機器檢查掃描源碼釘死）。五個會上網的功能（AI 評價、回饋、測速、網路延遲量測、檢查更新）全部需要你主動觸發。\n\n出處：〔手冊.md:2498〕曦覽 XinSpect › 二十三、常見問題",
+   "citations": [
+    {
+     "locator": "README.md:10508",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L10508-L10509"
+    },
+    {
+     "locator": "手冊.md:2498",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L2498-L2498"
+    }
+   ],
+   "answer_locators": [
+    "手冊.md:2498"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.4
+  },
+  {
+   "kind": "out",
+   "q": "三源对账是什么意思？",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "這一頁回答三個問題，對每一個畫面、每一把事實鍵：它寫的是什麼意思、這個數字是怎麼校準的、拿它能做什麼研究。\n\n出处：〔片段 2〕〔docs/FEATURE-REFERENCE.md:3〕曦覽 XinSpect 百科 › 第 2 部 系統架構：事實是怎麼被造出來、被守住、被送出去的 › 2.4 事實模型：一個 record 與兩條不變式",
+   "citations": [
+    {
+     "locator": "docs/FEATURE-REFERENCE.md:3",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L3-L3"
+    },
+    {
+     "locator": "README.md:933",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L933-L933"
+    },
+    {
+     "locator": "docs/RELEASE-NOTES-3.05.md:31",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/RELEASE-NOTES-3.05.md#L31-L31"
+    }
+   ],
+   "answer_locators": [
+    "docs/FEATURE-REFERENCE.md:3"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.3
+  },
+  {
+   "kind": "out",
+   "q": "怎麼用查詢語言篩選韌體安全類的事實？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- `key`：事實的穩定識別鍵（如 `msr.0x8b`、`spi.hsfsts`）。\n- `category`：事實分類（如 `韌體安全`、`系統與軟體`）。\n- `source`：資料來源文字。\n- `value`：人可讀的值文字。\n- `availability`：可用性三態（見 §2）。\n\n出處：〔片段 3〕docs/spec/query-language.v1.md:54〔XinSpect 事實查詢語言 v1 › 1. 文法 › 欄位（七種）〕",
+   "citations": [
+    {
+     "locator": "docs/spec/query-language.v1.md:54",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/spec/query-language.v1.md#L54-L56"
+    },
+    {
+     "locator": "手冊.md:1218",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L1218-L1224"
+    }
+   ],
+   "answer_locators": [
+    "docs/spec/query-language.v1.md:54"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.4
+  },
+  {
+   "kind": "out",
+   "q": "曦覽的官方網站是哪一個網址？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "網站只呈現說明，不會掃描你的電腦，也不需要任何安裝。\n\n出處：〔片段 1〕邊界（那一列不要抄）",
+   "citations": [
+    {
+     "locator": "docs/RELEASE-NOTES-3.05.md:11",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/RELEASE-NOTES-3.05.md#L11-L12"
+    },
+    {
+     "locator": "README.md:5",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L5-L8"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.5
+  },
+  {
+   "kind": "out",
+   "q": "SPD 是從哪條路徑讀的？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "| 事實來源契約 | 這個值從哪條路徑來、憑什麼算數 | 把讀不到壓成 0；宣告冒充量測 |\n\n出處：〔README.md:2056〕曦覽 XinSpect 百科 › 第 5 部 量測方法學：數字是怎麼算出來的、誤差從哪裡來 › 5.1 兩份契約的分工",
+   "citations": [
+    {
+     "locator": "README.md:2056",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L2056-L2059"
+    },
+    {
+     "locator": "手冊.md:102",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/手冊.md#L102-L108"
+    }
+   ],
+   "answer_locators": [
+    "README.md:2056"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.1
+  },
+  {
+   "kind": "in",
+   "q": "What is the PCIe 5.0 data rate per lane?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "This figure is a calculation from the physical signaling rate (2.5 gigabaud) divided by the encoding overhead (10 bits per byte).\n\n出处：〔片段 1〕Wikipedia/PCI Express 第 24 段",
+   "citations": [
+    {
+     "locator": "Wikipedia/PCI Express 第 24 段",
+     "url": "https://en.wikipedia.org/wiki/PCI_Express"
+    },
+    {
+     "locator": "Wikipedia/PCI Express 規格表 8",
+     "url": "https://en.wikipedia.org/wiki/PCI_Express"
+    },
+    {
+     "locator": "Wikipedia/NVLink 規格表 1",
+     "url": "https://en.wikipedia.org/wiki/NVLink"
+    },
+    {
+     "locator": "Wikipedia/List of Intel Core mobile processors 第 23 段",
+     "url": "https://en.wikipedia.org/wiki/List_of_Intel_Core_mobile_processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 1.9
+  },
+  {
+   "kind": "in",
+   "q": "How many pins does the ATX 24-pin main power connector have?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "The 20–24-pin Molex Mini-Fit Jr. has a power rating of, 9 amperes maximum per pin).\n\n界線：* PS_ON# (power on) is a signal from the motherboard to the power supply.\n\n來源：〔片段 1〕〔Wikipedia/ATX 規格表 2〕",
+   "citations": [
+    {
+     "locator": "Wikipedia/ATX 規格表 2",
+     "url": "https://en.wikipedia.org/wiki/ATX"
+    },
+    {
+     "locator": "Wikipedia/Power supply unit (computer) 規格表 3",
+     "url": "https://en.wikipedia.org/wiki/Power_supply_unit_%28computer%29"
+    },
+    {
+     "locator": "Wikipedia/ATX 第 21 段",
+     "url": "https://en.wikipedia.org/wiki/ATX"
+    },
+    {
+     "locator": "Wikipedia/Power supply unit (computer) 第 24 段",
+     "url": "https://en.wikipedia.org/wiki/Power_supply_unit_%28computer%29"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 2.0
+  },
+  {
+   "kind": "in",
+   "q": "What is the maximum bandwidth of USB 3.2 Gen 2x2?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "The re-specification of USB 3.0 as \"USB 3.1 Gen 1\" was misused by some manufacturers to advertise products with signaling rates of as \"USB 3.1\" by omitting the defining generation.\n\n- USB 3.2 Gen 2×2 – new, marketed as SuperSpeed USB 20 Gbps, signaling rate over two lanes using 128b/132b encoding (raw data rate: ).\n- The re-specification of USB 3.0 as \"USB 3.1 Gen 1\" was misused by some manufacturers to advertise products with signaling rates of as \"USB 3.1\" by omitting the defining generation.\n\n出处：〔片段 1〕〔Wikipedia/USB 3.0 第 16 段〕",
+   "citations": [
+    {
+     "locator": "Wikipedia/USB 3.0 第 17 段",
+     "url": "https://en.wikipedia.org/wiki/USB_3.0"
+    },
+    {
+     "locator": "Wikipedia/USB4 第 18 段",
+     "url": "https://en.wikipedia.org/wiki/USB4"
+    },
+    {
+     "locator": "Wikipedia/USB 3.0 第 16 段",
+     "url": "https://en.wikipedia.org/wiki/USB_3.0"
+    },
+    {
+     "locator": "Wikipedia/OptiPlex 規格表 12",
+     "url": "https://en.wikipedia.org/wiki/OptiPlex"
+    },
+    {
+     "locator": "Wikipedia/OptiPlex 規格表 13",
+     "url": "https://en.wikipedia.org/wiki/OptiPlex"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 4.6
+  },
+  {
+   "kind": "in",
+   "q": "Which Intel microarchitecture is Alder Lake based on?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "Alder Lake-N: hybrid processor, succeeds Rocket Lake and Tiger Lake, released on November 4, 2021.\n\n出处：〔片段 3〕Wikipedia/List of Intel CPU microarchitectures 第 6 段",
+   "citations": [
+    {
+     "locator": "Wikipedia/Consumer Ultra-Low Voltage 第 6 段",
+     "url": "https://en.wikipedia.org/wiki/Consumer_Ultra-Low_Voltage"
+    },
+    {
+     "locator": "Wikipedia/List of Intel CPU microarchitectures 第 7 段",
+     "url": "https://en.wikipedia.org/wiki/List_of_Intel_CPU_microarchitectures"
+    },
+    {
+     "locator": "Wikipedia/List of Intel CPU microarchitectures 第 6 段",
+     "url": "https://en.wikipedia.org/wiki/List_of_Intel_CPU_microarchitectures"
+    },
+    {
+     "locator": "Wikipedia/Alder Lake 第 8 段",
+     "url": "https://en.wikipedia.org/wiki/Alder_Lake"
+    },
+    {
+     "locator": "Wikipedia/Atom (system on a chip) 第 4 段",
+     "url": "https://en.wikipedia.org/wiki/Atom_%28system_on_a_chip%29"
+    },
+    {
+     "locator": "Wikipedia/Gracemont (microarchitecture) 第 2 段",
+     "url": "https://en.wikipedia.org/wiki/Gracemont_%28microarchitecture%29"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 1.6
+  },
+  {
+   "kind": "in",
+   "q": "What is the TDP of the Ryzen 9 7950X?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "This is a table lookup, not a guess:\n- Ryzen 9 7950X（Wikipedia：lib:List of AMD Ryzen processors）：cores (threads) 16 (32)；base_clock_ghz 4.5；boost_clock_ghz 5.7；l3_cache 64 MB；core_config 2 × 8；tdp_w 170 W；release_date Sep 27, 2022；launch_price_usd US $699；原文:Branding and model Branding and model.1 7950X；原文:Chiplets 2 × CCD 1 × I/OD；原文:Thermal solution —N/a",
+   "citations": [
+    {
+     "locator": "cpu_model Ryzen 9 7950X",
+     "url": "https://en.wikipedia.org/wiki/lib:List of AMD Ryzen processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "How does AMD Zen 4 handle AVX-512?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "What is the difference between DisplayPort 1.4 and 2.0?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "Version 1.4 was published in April 2018.\n\n- eDP 1.4\n\n出处：〔片段 3〕Wikipedia/DisplayPort 第 29 段",
+   "citations": [
+    {
+     "locator": "Wikipedia/USB-C 規格表 4",
+     "url": "https://en.wikipedia.org/wiki/USB-C"
+    },
+    {
+     "locator": "Wikipedia/DisplayPort 第 5 段",
+     "url": "https://en.wikipedia.org/wiki/DisplayPort"
+    },
+    {
+     "locator": "Wikipedia/DisplayPort 第 29 段",
+     "url": "https://en.wikipedia.org/wiki/DisplayPort"
+    },
+    {
+     "locator": "Wikipedia/Thunderbolt (interface) 第 13 段",
+     "url": "https://en.wikipedia.org/wiki/Thunderbolt_%28interface%29"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 1.1
+  },
+  {
+   "kind": "in",
+   "q": "What is the M.2 keying for NVMe SSDs?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "M.2 modules are rectangular, with an edge connector on one side and a semicircular mounting hole at the center of the opposite edge.\n\nEvidence grade: 1",
+   "citations": [
+    {
+     "locator": "Wikipedia/M.2 第 5 段",
+     "url": "https://en.wikipedia.org/wiki/M.2"
+    },
+    {
+     "locator": "Wikipedia/M.2 第 2 段",
+     "url": "https://en.wikipedia.org/wiki/M.2"
+    },
+    {
+     "locator": "Wikipedia/Serial ATA 第 24 段",
+     "url": "https://en.wikipedia.org/wiki/Serial_ATA"
+    },
+    {
+     "locator": "Wikipedia/NVM Express 第 9 段",
+     "url": "https://en.wikipedia.org/wiki/NVM_Express"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 1.3
+  },
+  {
+   "kind": "in",
+   "q": "How fast is Thunderbolt 4 compared to Thunderbolt 3?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "USB topology (a single source per its exemption) and per-port link negotiation: the interpretive point is comparing negotiated rate against device capability, an attachment to a slower port yielding the slower rate — a common case with chassis front-panel cabling.\n\n- 目前没有 Thunderbolt 4 的具体数字，所以这一行数据我这边没有。\n- `TbUsb4Service` covers Thunderbolt/USB4 including its security level, which determines which devices may attach and is therefore relevant to chapter 14.\n- 这个域在問什麼。 「這些高速外部介面協商到什麼、供電多少、有沒有錯誤、Thunderbolt 的安全等級。」\n\n界線：** 協商速率是「目前」，不是「能力」；Thunderbolt 的安全等級會被使用者關掉；CXL 在消費平台上通常不存在，應標 `NotApplicable` 而非錯誤。\n\n出处：〔docs/FEATURE-REFERENCE.md:1773〕第 3 部 数据辞典 › 3.30 `uv` — USB-C／Thunderbolt／CXL（11 把）",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.en.md:718",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.en.md#L718-L718"
+    },
+    {
+     "locator": "docs/FEATURE-REFERENCE.md:1773",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L1773-L1773"
+    }
+   ],
+   "answer_locators": [
+    "docs/FEATURE-REFERENCE.md:1773"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 2.5
+  },
+  {
+   "kind": "in",
+   "q": "What socket does the Intel Core i9-13900K use?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "This is a table lookup, not a guess:\n- Core i9 13900K（Wikipedia：List of Intel processors）：Core i9；13900K；8 (16)；16 (16)；24 (32)；3.0；2.2；5.4；4.3；5.8；5.7；1.65 GHz；32；32 MB；36 MB；125；253；Price (USD)；Socket；Launch；$589；LGA 1700；October 20, 2022",
+   "citations": [
+    {
+     "locator": "cpu_model Core i9 13900K",
+     "url": "https://en.wikipedia.org/wiki/List of Intel processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "What is the memory bandwidth of DDR5-4800 per channel?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.1
+  },
+  {
+   "kind": "in",
+   "q": "How many PCIe lanes does an EPYC 9004 provide?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "All models support 28 PCIe 5.0 lanes.\n\n出处：〔片段 1〕Wikipedia/Zen 5 第 9 段",
+   "citations": [
+    {
+     "locator": "Wikipedia/Zen 5 第 9 段",
+     "url": "https://en.wikipedia.org/wiki/Zen_5"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.6
+  },
+  {
+   "kind": "in",
+   "q": "What is ECC memory and which platforms support it?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "ECC is verified through two independent paths — physical device width exceeding data width (hardware, SPD) and the array's declared correction type (firmware,\n\n界线：** Configured versus rated speed is `R-MEM-03`, with causes including BIOS settings, platform limits and mixed modules; the tool states the gap without inferring the cause.\n\n出处：〔WHITEPAPER.en.md:623〕Part VI — Fact domains › 30. Memory subsystem",
+   "citations": [
+    {
+     "locator": "README.en.md:348",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L348-L355"
+    },
+    {
+     "locator": "WHITEPAPER.en.md:623",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.en.md#L623-L623"
+    }
+   ],
+   "answer_locators": [
+    "WHITEPAPER.en.md:623"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.2
+  },
+  {
+   "kind": "in",
+   "q": "What does the CPUID instruction return?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- Specification and topology: family/model/stepping (including extended-family carry, once missing and caught by mutation testing); instruction sets (AVX-512, AES-NI, …); cache hierarchy; die topology (CPUID leaf 0x1F Module/Tile/Die levels; if unsupported, `NotSupported` — it does not fall back to leaf 0xB, which has no die level and would invent a single die.\n\n\nSource: README.en.md:348 XinSpect › 6. Features in detail › 6.2 Processor",
+   "citations": [
+    {
+     "locator": "README.en.md:348",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L348-L355"
+    }
+   ],
+   "answer_locators": [
+    "README.en.md:348"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.1
+  },
+  {
+   "kind": "in",
+   "q": "What is the power consumption of the NVIDIA RTX 4090?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "This is a table lookup, not a guess:\n- GeForce RTX 4090（Wikipedia：lib:List of Nvidia graphics processing units）：architecture AD102-300-A1；transistors_m 76.3；die_size_mm2 608.5；interface PCIe 4 x16；boost_clock_mhz 2235 (2520)；core_config 16384:512:176: 128:512:128；l1_cache 128；l2_cache 72；tdp_w 450；原文:Launch Date October 12, 2022；原文:Clock Rate Memory (MHz) (GT/s) 1313 (21.0)；原文:Memory Configuration Size (GB) 24；原文:Memory Configuration Bus Type GDDR6X；原文:Memory Configuration Bus Width (bit) 384；原文:Memory Configuration Bandwidth (GB/s) 1008.0；原文:Fillrate Pixel (GP/s) 393.36 (443.52)；原文:Fillrate Texture (GT/s) 1144.32 (1290.24)；原文:Processing Power (TFLOPS) Double Precision (FP64 1:64) 1.144 (1.290)（另有 9 個欄位…",
+   "citations": [
+    {
+     "locator": "gpu_model GeForce RTX 4090",
+     "url": "https://en.wikipedia.org/wiki/lib:List of Nvidia graphics processing units"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "What is the difference between SATA III and NVMe?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "`R-MEM-01` (modules not from one batch): inputs are module count, manufacturers and part numbers; fewer than two modules is a match, otherwise any disagreement in manufacturer or part number is a conflict.\n\n- Memory. `R-MEM-01` (modules not from one batch): inputs are module count, manufacturers and part numbers; fewer than two modules is a match, otherwise any disagreement in manufacturer or part number is a conflict. Mixed batches are evidence of expansion, replacement or assembly — the rule states the inconsistency and makes no value judgement. `R-MEM-02` (anomalous serials): empty or duplicated serials across modules indicate non-genuine parts or rewritten SPD. `R-MEM-03` (memory not at rated speed): compares SPD rated speed against the configured value; causes include BIOS settings, platform limits, mixed modules and controller downclocking, and the tool states the gap without inferring the cause. `R-MEM-04` (array declaration vs installed): compares installed total, declared array maximum, slot count and module count; an installed total above the declared maximum points at a stale or rewritten SMBIOS. `R-MEM-05` (declared ECC vs actual bit width): the highest-value rule in this partition, because the cost difference between ECC and non-ECC memory is material, and it compares the firmware's declaration directly against a hardware measurement.\n\n证据等级 A：这一段文字是 XinSpect 的说明书，不是实测数据。要判断某一项具体值（如 500GB/s）出现在哪里，必须引用主文档的那一条事实键（`READ.MEM-04`）。",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.en.md:321",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.en.md#L321-L321"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 3.2
+  },
+  {
+   "kind": "in",
+   "q": "What is a PCIe root complex?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "Verification before buying a used machine: chassis intrusion (SMBIOS event), HPA hidden capacity (Host Protected Area, capacity the firmware withholds from the OS — direct evidence of a refurbished or capacity-faked drive), SMART failing-now, microcode cross-check, driver signature audit, Defender exclusion audit, USBSTOR traces, non-Microsoft root certificates, fake-capacity write verification.\n\n- What is a PCIe root complex? This is the physical component that connects the motherboard to the rest of the system. The root complex contains the PCIe controller, which manages data transfers between the host and peripheral devices.\n- Verification before buying a used machine: chassis intrusion (SMBIOS event), HPA hidden capacity (Host Protected Area, capacity the firmware withholds from the OS — direct evidence of a refurbished or capacity-faked drive), SMART failing-now, microcode cross-check, driver signature audit, Defender exclusion audit, USBSTOR traces, non-Microsoft root certificates, fake-capacity write verification.\n- Confirming a build or upgrade: SPD direct read and slot layout, memory channels, negotiated PCIe link speed, USB link speed, display link encoding, ReBAR status.\n\n边界：This is the physical component that connects the motherboard to the rest of the system.",
+   "citations": [
+    {
+     "locator": "README.en.md:90",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L90-L96"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 2.5
+  },
+  {
+   "kind": "in",
+   "q": "How does the Intel Golden Cove core differ from Skylake?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- Microarchitecture=scope=\"row\"  | Fabrication process (nm)；Core=65；Nehalem=45；Sandy Bridge=32/22；Haswell=22；Broadwell=14；Skylake=14+/14++/14+++；Sunny Cove=10；Willow Cove=10SF；Golden Cove=10ESF；Raptor Cove=12th；2022\n- Microarchitecture=scope=\"rowgroup\" | Cache；Core=scope=\"row\"  | μop；Sandy Bridge=1.5K μops；Haswell=2.25K μops；Broadwell=4K μops\n- Microarchitecture=L1；Core=Data；Nehalem=Size；Sandy Bridge=32 & 48 KB/core；Haswell=48 KB/core\n- Microarchitecture=Ways；Core=8 way；Nehalem=4 way；Sandy Bridge=8 way；Skylake=8 way\n\n出处：〔片段 1〕Intel Core（Wikipedia）規格表 1",
+   "citations": [
+    {
+     "locator": "Wikipedia/Intel Core 規格表 1",
+     "url": "https://en.wikipedia.org/wiki/Intel_Core"
+    },
+    {
+     "locator": "Wikipedia/Golden Cove 第 2 段",
+     "url": "https://en.wikipedia.org/wiki/Golden_Cove"
+    },
+    {
+     "locator": "Wikipedia/Golden Cove 第 1 段",
+     "url": "https://en.wikipedia.org/wiki/Golden_Cove"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 3.5
+  },
+  {
+   "kind": "in",
+   "q": "What are the ATX12V power supply versions?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "Quick vs Full is not \"accurate vs inaccurate\"; it changes sampling length, repetition and item mix.\n\n- Every item carries confidence: `Insufficient` means the samples cannot support the item's conclusion (timer resolution, sample count, failed self-validation). Do not cite an `Insufficient` number.\n- Cross-machine comparison requires the same item, settings and version. Algorithms change between versions; numbers are not comparable across them.\n- No ranking: the tool produces no total score. If you need one, choose the weights yourself and publish the weight table, or the ranking cannot be reproduced.\n\n边界：This section contains no evidence.",
+   "citations": [
+    {
+     "locator": "README.en.md:516",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L516-L520"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 1.5
+  },
+  {
+   "kind": "in",
+   "q": "What is the maximum length of a passive Thunderbolt copper cable?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "Passive copper cables exceeding are limited to .\n\nCite location: Wikipedia/Thunderbolt (interface) 第 31 段",
+   "citations": [
+    {
+     "locator": "Wikipedia/Thunderbolt (interface) 第 31 段",
+     "url": "https://en.wikipedia.org/wiki/Thunderbolt_%28interface%29"
+    },
+    {
+     "locator": "Wikipedia/Thunderbolt (interface) 第 20 段",
+     "url": "https://en.wikipedia.org/wiki/Thunderbolt_%28interface%29"
+    },
+    {
+     "locator": "Wikipedia/Thunderbolt (interface) 第 19 段",
+     "url": "https://en.wikipedia.org/wiki/Thunderbolt_%28interface%29"
+    },
+    {
+     "locator": "Wikipedia/Serial ATA 規格表 6",
+     "url": "https://en.wikipedia.org/wiki/Serial_ATA"
+    },
+    {
+     "locator": "Wikipedia/USB-C 第 17 段",
+     "url": "https://en.wikipedia.org/wiki/USB-C"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 1.4
+  },
+  {
+   "kind": "out",
+   "q": "Who won the 2018 FIFA World Cup?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "How do I bake sourdough bread?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "What is the capital of Australia?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "The documentation does not say.\n\nEvidence grade A: The documentation does not contain a direct answer to the question.",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.en.md:2745",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.en.md#L2745-L2769"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.6
+  },
+  {
+   "kind": "out",
+   "q": "Write a poem about the ocean.",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "What is the plot of Hamlet?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "How many calories are in a banana?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "What is the best hiking trail in Norway?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "Who painted the Mona Lisa?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "How do I learn to play the guitar?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "What is the population of Tokyo?",
+   "lang": null,
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "Neither the XinSpect documentation nor the hardware ID tables cover this. I searched the encyclopedia, the whitepaper, the manual, the changelog and the PCI/USB/OUI tables and found no matching entry, so I will not invent an answer. Try rephrasing, or ask which data XinSpect reads.",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "Ryzen 7 9800X3D 的 L3 快取有多大？",
+   "lang": "zh-Hant",
+   "expect_all": [
+    "96"
+   ],
+   "value_ok": true,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- Ryzen 7 9800X3D（Wikipedia：lib:List of AMD Ryzen processors）：cores (threads) 8 (16)；base_clock_ghz 4.7；boost_clock_ghz 5.2；l3_cache 96 MB；tdp_w 120 W；core_config 1 × 8；release_date November 7, 2024；launch_price_usd US $479；原文:Branding and Model Branding and Model.1 9800X3D；原文:Chiplets 1 × CCD 1 × I/OD；原文:Thermal solution —N/a",
+   "citations": [
+    {
+     "locator": "cpu_model Ryzen 7 9800X3D",
+     "url": "https://en.wikipedia.org/wiki/lib:List of AMD Ryzen processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "AMD Ryzen 7 9800X3D 的 TDP 是多少？",
+   "lang": "zh-Hant",
+   "expect_all": [
+    "120"
+   ],
+   "value_ok": true,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- Ryzen 7 9800X3D（Wikipedia：lib:List of AMD Ryzen processors）：cores (threads) 8 (16)；base_clock_ghz 4.7；boost_clock_ghz 5.2；l3_cache 96 MB；tdp_w 120 W；core_config 1 × 8；release_date November 7, 2024；launch_price_usd US $479；原文:Branding and Model Branding and Model.1 9800X3D；原文:Chiplets 1 × CCD 1 × I/OD；原文:Thermal solution —N/a",
+   "citations": [
+    {
+     "locator": "cpu_model Ryzen 7 9800X3D",
+     "url": "https://en.wikipedia.org/wiki/lib:List of AMD Ryzen processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "What is the boost clock of the Ryzen 7 9800X3D?",
+   "lang": "en",
+   "expect_all": [
+    "5.2"
+   ],
+   "value_ok": true,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "This is a table lookup, not a guess:\n- Ryzen 7 9800X3D（Wikipedia：lib:List of AMD Ryzen processors）：cores (threads) 8 (16)；base_clock_ghz 4.7；boost_clock_ghz 5.2；l3_cache 96 MB；tdp_w 120 W；core_config 1 × 8；release_date November 7, 2024；launch_price_usd US $479；原文:Branding and Model Branding and Model.1 9800X3D；原文:Chiplets 1 × CCD 1 × I/OD；原文:Thermal solution —N/a",
+   "citations": [
+    {
+     "locator": "cpu_model Ryzen 7 9800X3D",
+     "url": "https://en.wikipedia.org/wiki/lib:List of AMD Ryzen processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "GeForce RTX 4090 的顯示記憶體是多少？",
+   "lang": "zh-Hant",
+   "expect_all": [
+    "24"
+   ],
+   "value_ok": true,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- GeForce RTX 4090（Wikipedia：lib:List of Nvidia graphics processing units）：architecture AD102-300-A1；transistors_m 76.3；die_size_mm2 608.5；interface PCIe 4 x16；boost_clock_mhz 2235 (2520)；core_config 16384:512:176: 128:512:128；l1_cache 128；l2_cache 72；tdp_w 450；原文:Launch Date October 12, 2022；原文:Clock Rate Memory (MHz) (GT/s) 1313 (21.0)；原文:Memory Configuration Size (GB) 24；原文:Memory Configuration Bus Type GDDR6X；原文:Memory Configuration Bus Width (bit) 384；原文:Memory Configuration Bandwidth (GB/s) 1008.0；原文:Fillrate Pixel (GP/s) 393.36 (443.52)；原文:Fillrate Texture (GT/s) 1144.32 (1290.24)；原文:Processing Power (TFLOPS) Double Precision (FP64 1:64) 1.144 (1.290)（另有 9 個欄位…",
+   "citations": [
+    {
+     "locator": "gpu_model GeForce RTX 4090",
+     "url": "https://en.wikipedia.org/wiki/lib:List of Nvidia graphics processing units"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "How much VRAM does the GeForce RTX 4090 have?",
+   "lang": "en",
+   "expect_all": [
+    "24"
+   ],
+   "value_ok": true,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "This is a table lookup, not a guess:\n- GeForce RTX 4090（Wikipedia：lib:List of Nvidia graphics processing units）：architecture AD102-300-A1；transistors_m 76.3；die_size_mm2 608.5；interface PCIe 4 x16；boost_clock_mhz 2235 (2520)；core_config 16384:512:176: 128:512:128；l1_cache 128；l2_cache 72；tdp_w 450；原文:Launch Date October 12, 2022；原文:Clock Rate Memory (MHz) (GT/s) 1313 (21.0)；原文:Memory Configuration Size (GB) 24；原文:Memory Configuration Bus Type GDDR6X；原文:Memory Configuration Bus Width (bit) 384；原文:Memory Configuration Bandwidth (GB/s) 1008.0；原文:Fillrate Pixel (GP/s) 393.36 (443.52)；原文:Fillrate Texture (GT/s) 1144.32 (1290.24)；原文:Processing Power (TFLOPS) Double Precision (FP64 1:64) 1.144 (1.290)（另有 9 個欄位…",
+   "citations": [
+    {
+     "locator": "gpu_model GeForce RTX 4090",
+     "url": "https://en.wikipedia.org/wiki/lib:List of Nvidia graphics processing units"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "EPYC 9654 用哪個插槽？",
+   "lang": "zh-Hant",
+   "expect_all": [
+    "SP5"
+   ],
+   "value_ok": true,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- EPYC 9654（Wikipedia：lib:Epyc）：process_nm TSMC N5；cores (threads) 96 (192)；core_config 12 × 8；base_clock_ghz 2.4；boost_clock_ghz 3.7；l1_cache 6；l2_cache 96；l3_cache 384；socket SP5；pcie_lanes 128；memory_types DDR5-4800 twelve-channel；tdp_w 360 W；release_date Nov 10, 2022；launch_price_usd $11,805；原文:Chiplets 12 × CCD 1 × I/OD；原文:Socket count 1P/2P",
+   "citations": [
+    {
+     "locator": "cpu_model EPYC 9654",
+     "url": "https://en.wikipedia.org/wiki/lib:Epyc"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "What socket does the EPYC 9654 use?",
+   "lang": "en",
+   "expect_all": [
+    "SP5"
+   ],
+   "value_ok": true,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "This is a table lookup, not a guess:\n- EPYC 9654（Wikipedia：lib:Epyc）：process_nm TSMC N5；cores (threads) 96 (192)；core_config 12 × 8；base_clock_ghz 2.4；boost_clock_ghz 3.7；l1_cache 6；l2_cache 96；l3_cache 384；socket SP5；pcie_lanes 128；memory_types DDR5-4800 twelve-channel；tdp_w 360 W；release_date Nov 10, 2022；launch_price_usd $11,805；原文:Chiplets 12 × CCD 1 × I/OD；原文:Socket count 1P/2P",
+   "citations": [
+    {
+     "locator": "cpu_model EPYC 9654",
+     "url": "https://en.wikipedia.org/wiki/lib:Epyc"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "Ryzen 5 5600X 有幾核心幾執行緒？",
+   "lang": "zh-Hant",
+   "expect_all": [
+    "6"
+   ],
+   "value_ok": true,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- Ryzen 5 5600X（Wikipedia：lib:List of AMD Ryzen processors）：cores (threads) 6 (12)；base_clock_ghz 3.7；boost_clock_ghz 4.6；l3_cache 32 MB；tdp_w 65 W；core_config 1 × 6；release_date Nov 5, 2020；launch_price_usd US $299；原文:Branding and model Branding and model.1 5600X；原文:Chiplets 1 × CCD 1 × I/OD；原文:Thermal solution Wraith Stealth",
+   "citations": [
+    {
+     "locator": "cpu_model Ryzen 5 5600X",
+     "url": "https://en.wikipedia.org/wiki/lib:List of AMD Ryzen processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "Ryzen 5 3600 的 L3 快取多大？",
+   "lang": "zh-Hans",
+   "expect_all": [
+    "32"
+   ],
+   "value_ok": true,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- Ryzen 5 3600（Wikipedia：lib:List of AMD Ryzen processors）：cores (threads) 6 (12)；base_clock_ghz 3.6；boost_clock_ghz 4.2；l3_cache 32 MB；tdp_w 65 W；core_config 2 × 3；release_date Jul 7, 2019；launch_price_usd US $199；原文:Branding and Model Branding and Model.1 3600；原文:Chiplets 1 × CCD 1 × I/OD；原文:Thermal Solution Wraith Stealth",
+   "citations": [
+    {
+     "locator": "cpu_model Ryzen 5 3600",
+     "url": "https://en.wikipedia.org/wiki/lib:List of AMD Ryzen processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "in",
+   "q": "B650 支援哪些 CPU 世代？",
+   "lang": "zh-Hant",
+   "expect_all": [
+    "Zen 4"
+   ],
+   "value_ok": false,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "這個域在問什麼。「這顆 CPU 的封裝、功耗、溫度、電壓與世代，還有它自己的節流史。\n\n出處：〔片段 1〕docs/FEATURE-REFERENCE.md:1438 〔第 3 部　數據辭典 › 3.14 `cpu` — 處理器深入（15 把）〕",
+   "citations": [
+    {
+     "locator": "docs/FEATURE-REFERENCE.md:1438",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L1438-L1438"
+    }
+   ],
+   "answer_locators": [
+    "docs/FEATURE-REFERENCE.md:1438"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.2
+  },
+  {
+   "kind": "in",
+   "q": "X870E 支援哪些 CPU 世代？",
+   "lang": "zh-Hans",
+   "expect_all": [
+    "Zen 4"
+   ],
+   "value_ok": false,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "這個域在問什麼。 「這顆 CPU 的封裝、功耗、溫度、電壓與世代，還有它自己的節流史。\n\n出處：〔片段 1〕docs/FEATURE-REFERENCE.md:1438 〔第 3 部　數據辭典 › 3.14 `cpu` — 處理器深入（15 把）〕",
+   "citations": [
+    {
+     "locator": "docs/FEATURE-REFERENCE.md:1438",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L1438-L1438"
+    }
+   ],
+   "answer_locators": [
+    "docs/FEATURE-REFERENCE.md:1438"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 0.8
+  },
+  {
+   "kind": "in",
+   "q": "Which CPU generations does the B650E support?",
+   "lang": "en",
+   "expect_all": [
+    "Zen 4"
+   ],
+   "value_ok": false,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- Sensor count and update rate: LibreHardwareMonitor is broad, but HWiNFO still goes deeper on rare boards and laptop ECs. XinSpect deliberately avoids EC (chapter 15).\n- Localisation and accessibility: three UI languages and basic keyboard navigation, but no full screen-reader optimisation.\n\n出处：〔README.en.md:914〕XinSpect › 18. Comparison with other tools › 18.3 Where it is clearly behind",
+   "citations": [
+    {
+     "locator": "README.en.md:914",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L914-L918"
+    }
+   ],
+   "answer_locators": [
+    "README.en.md:914"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.2
+  },
+  {
+   "kind": "in",
+   "q": "X670E 支援哪些 CPU 世代？",
+   "lang": "zh-Hant",
+   "expect_all": [
+    "Zen 4"
+   ],
+   "value_ok": false,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "「這顆 CPU 的封裝、功耗、溫度、電壓與世代，還有它自己的節流史。\n\n- 基線：這個域在問什麼。「這顆 CPU 的封裝、功耗、溫度、電壓與世代，還有它自己的節流史。\n- 這個域在問什麼。 「這顆 CPU 的封裝、功耗、溫度、電壓與世代，還有它自己的節流史。\n\n界線：基線：這個域在問什麼。「這顆 CPU 的封裝、功耗、溫度、電壓與世代，還有它自己的節流史。\n\n出處：〔片段 1〕〔docs/FEATURE-REFERENCE.md:1438〕〔第 3 部　數據辭典 › 3.14 `cpu` — 處理器深入（15 把）〕",
+   "citations": [
+    {
+     "locator": "docs/FEATURE-REFERENCE.md:1438",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L1438-L1438"
+    }
+   ],
+   "answer_locators": [
+    "docs/FEATURE-REFERENCE.md:1438"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.8
+  },
+  {
+   "kind": "in",
+   "q": "Z790 是什麼架構的晶片組？",
+   "lang": "zh-Hans",
+   "expect_all": [
+    "Raptor"
+   ],
+   "value_ok": false,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- 微架構推定。 `MicroarchProfile` 依家族與型號推定微架構，並提供該架構的預期快取組態與頻率特性。此推定的用途是作為其他檢查的基準（例如快取容量是否合理），但推定的可靠性依賴型號表的完整性，因此當型號不在表中時，依賴推定的檢查必須輸出無法判定而非失敗。\n\n出處：〔片段 1〕〔WHITEPAPER.md:1379〕第六部 事實領域逐項說明 › 第二十九章 处理器、晶片組與平臺識別 › 29.2 平臺識別",
+   "citations": [
+    {
+     "locator": "WHITEPAPER.md:1379",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L1379-L1379"
+    },
+    {
+     "locator": "README.md:10925",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L10925-L10958"
+    }
+   ],
+   "answer_locators": [
+    "WHITEPAPER.md:1379"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.9
+  },
+  {
+   "kind": "out",
+   "q": "Intel Core i9-15900K 有幾核心？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- 這是什麼：供給處理器核心的電壓，可用固定覆寫值或相對預設的偏移量。\n- 功能／怎麼讀：頻率拉高需要更多電壓才穩定，但發熱大致隨電壓平方成長——所以正確做法是找「剛好穩定」的最低電壓，而不是一路往上加。\n- 安全補述：真實寫入，而且是這一頁最危險的一項：電壓過高會讓溫度失控並永久加速電晶體老化（Intel 13／14 代的降級事件就是這個機制），過低則立刻當機。請小幅（0.01–0.025 V 級）調整，每次都看溫度，並在爆溫時讓下方看門狗把它拉回來。\n\n出處：〔片段 3〕〔README.md:9810〕曦覽 XinSpect 百科 › 第 15 部 建置、發佈、簽章與貢獻 › 附錄 G　全站說明條目逐條（285 條） › 附錄 G・分頁 `oc`",
+   "citations": [
+    {
+     "locator": "Nav/ChangelogCatalog.cs",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/Nav/ChangelogCatalog.cs"
+    },
+    {
+     "locator": "README.md:9810",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.md#L9810-L9813"
+    }
+   ],
+   "answer_locators": [
+    "README.md:9810"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 3.5
+  },
+  {
+   "kind": "out",
+   "q": "Ryzen 9 7945HX 可以裝在哪張主機板上？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- Ryzen 9 7945HX（Wikipedia：lib:List of AMD Ryzen processors）：cores (threads) 16 (32)；base_clock_ghz 2.5；boost_clock_ghz 5.4；l3_cache 64 MB；core_config 2 × 8；tdp_w 55–75 W；release_date February 28, 2023；原文:Branding and model Branding and model.1 7945HX；原文:Chiplets 2 × CCD 1 × I/OD",
+   "citations": [
+    {
+     "locator": "cpu_model Ryzen 9 7945HX",
+     "url": "https://en.wikipedia.org/wiki/lib:List of AMD Ryzen processors"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "我的 CPU 現在幾度？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "machine-specific",
+   "answer": "這個網站讀不到你的電腦。官網只呈現說明，不掃描任何機器——所以「你這台現在幾度、跑多快、健康不健康」在這裡沒有答案，任何看起來像讀值的數字都不可能是你的實測。\n\n要拿到你自己機器的讀值，得在 Windows 上跑曦覽桌面版。它把同一項性質分成硬體、韌體、作業系統三份陳述並列，讀不到的會給原因而不是給 0。下面幾段是文件裡實際寫到讀取路徑的地方，可以對著看桌面版哪一頁會出現你要的數字。",
+   "citations": [
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L394-L394"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L678-L678"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L388-L388"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L373-L382"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "幫我看一下我这台电脑的 BIOS 版本",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "machine-specific",
+   "answer": "这个网站读不到你的电脑。官网只呈现说明，不扫描任何机器——所以「你这台现在几度、跑多快、健康不健康」在这里没有答案，任何看起来像读值的数字都不可能是你的实测。\n\n要拿到你自己机器的读值，得在 Windows 上跑曦览桌面版。它把同一项性质分成硬件、固件、操作系统三份陈述并列，读不到的会给原因而不是给 0。下面几段是文档里实际写到读取路径的地方，可以对着看桌面版哪一页会出现你要的数字。",
+   "citations": [
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L394-L394"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/WHITEPAPER.md#L678-L678"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/docs/FEATURE-REFERENCE.md#L388-L388"
+    },
+    {
+     "locator": null,
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L373-L382"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "What temperature is my CPU running at?",
+   "lang": "en",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": null,
+   "answer": "- \"Could not read\" is drawn as \"normal.\" A missing temperature sensor shows 0 °C; a failed SMART query shows \"good\"; an invalid fan counter is converted to 0 RPM. None of these produces an error message, and each produces a clean-looking verification report.\n- Two sources disagree and nobody shows both. Firmware says Secure Boot is on, the registry says it is off. The CPU reports microcode revision N, Windows recorded N−1. Most tools display one and never mention the other.\n- Numbers have no provenance. \"Link speed\" may come from the driver, from a PCIe capability register, or from an OS device property. The three mean different things. A number without a source cannot be defended when it matters.\n\n出处：README.en.md:82 XinSpect › 1. What this is › 1.1 Why a fourth kind of tool",
+   "citations": [
+    {
+     "locator": "README.en.md:82",
+     "url": "https://github.com/Xinglanclever/XinSpect/blob/main/README.en.md#L82-L84"
+    }
+   ],
+   "answer_locators": [
+    "README.en.md:82"
+   ],
+   "locators_valid": 1,
+   "locators_total": 1,
+   "seconds": 1.9
+  },
+  {
+   "kind": "out",
+   "q": "B650 支援幾條 PCIe 6.0 通道？",
+   "lang": "zh-Hans",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": false,
+   "kind_tag": null,
+   "answer": "曦覽的文件裡沒有寫到這個問題，硬體 ID 對照表裡也沒有查到對應的項目。我查了百科、技術白皮書、手冊與版本沿革，沒有對得上的段落——所以我不會用猜的補一個答案。你可以換個問法，或直接問曦覽讀哪些資料、有哪些事實鍵。",
+   "citations": [],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  },
+  {
+   "kind": "out",
+   "q": "EPYC 9654 的保固是幾年？",
+   "lang": "zh-Hant",
+   "expect_all": [],
+   "value_ok": null,
+   "grounded": true,
+   "kind_tag": "entity-lookup",
+   "answer": "這是查表結果，不是推測：\n- EPYC 9654（Wikipedia：lib:Epyc）：process_nm TSMC N5；cores (threads) 96 (192)；core_config 12 × 8；base_clock_ghz 2.4；boost_clock_ghz 3.7；l1_cache 6；l2_cache 96；l3_cache 384；socket SP5；pcie_lanes 128；memory_types DDR5-4800 twelve-channel；tdp_w 360 W；release_date Nov 10, 2022；launch_price_usd $11,805；原文:Chiplets 12 × CCD 1 × I/OD；原文:Socket count 1P/2P",
+   "citations": [
+    {
+     "locator": "cpu_model EPYC 9654",
+     "url": "https://en.wikipedia.org/wiki/lib:Epyc"
+    }
+   ],
+   "answer_locators": [],
+   "locators_valid": 0,
+   "locators_total": 0,
+   "seconds": 0.0
+  }
+ ]
+}

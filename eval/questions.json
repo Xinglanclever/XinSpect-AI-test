@@ -1,0 +1,285 @@
+{
+ "note": "評測集。in_domain 每題都對應語料裡真有的段落；out_domain 是語料一定沒有的問題——用來量「該拒答時有沒有拒答」。expect_source 只是提醒人工核對時看哪個檔，檢索器不能讀它。 2026-10-31：把 5 題從 in_domain 移到 out_domain——逐題 grep 過語料，那 5 題在文件裡根本沒有對應段落，留在 in_domain 只會把「正確拒答」記成失敗。",
+ "in_domain": [
+  {
+   "lang": "zh-Hant",
+   "q": "什麼是六態？",
+   "expect_source": "README.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "事實鍵為什麼固定在編譯期？",
+   "expect_source": "README.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "版本 3.05 改了什麼？",
+   "expect_source": "Nav/ChangelogCatalog.cs"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "安全開機的 PK、KEK、db、dbx 各是什麼？",
+   "expect_source": "README.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "曦覽讀 MSR 的封裝溫度走哪條路徑？",
+   "expect_source": "README.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "為什麼不用內建金鑰連接 AI？",
+   "expect_source": "cloudflare/ai-proxy/README.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "安裝之後會寫入哪些資料夾？",
+   "expect_source": "README.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "時間膠囊快照的格式長什麼樣？",
+   "expect_source": "docs/spec/snapshot.schema.v1.json"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "突變測試在這個專案裡做什麼？",
+   "expect_source": "README.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "NVMe 電源狀態離開延遲怎麼量？",
+   "expect_source": "README.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "授權條款是什麼？",
+   "expect_source": "README.md"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "曦览有哪些已知限制？",
+   "expect_source": "README.zh-CN.md"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "什么是事实键目录？",
+   "expect_source": "README.zh-CN.md"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "为什么这个工具是只读优先的？",
+   "expect_source": "README.zh-CN.md"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "怎么用命令行导出证据？",
+   "expect_source": "README.zh-CN.md"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "测试数量有多少？",
+   "expect_source": "README.zh-CN.md"
+  },
+  {
+   "lang": "en",
+   "q": "How do I install XinSpect and what are the requirements?",
+   "expect_source": "README.en.md"
+  },
+  {
+   "lang": "en",
+   "q": "What are the six availability states?",
+   "expect_source": "README.en.md"
+  },
+  {
+   "lang": "en",
+   "q": "Why is the fact key catalogue frozen at compile time?",
+   "expect_source": "README.en.md"
+  },
+  {
+   "lang": "en",
+   "q": "Does XinSpect send any data to the internet?",
+   "expect_source": "README.en.md"
+  },
+  {
+   "lang": "en",
+   "q": "What is the offset and error vocabulary used in the docs?",
+   "expect_source": "README.en.md"
+  },
+  {
+   "lang": "en",
+   "q": "How does the Deep Bench work?",
+   "expect_source": "README.en.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "為什麼查不到不等於沒有？",
+   "expect_source": "docs/spec/query-language.v1.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "語料貢獻包上傳前要做哪些去識別化？",
+   "expect_source": "docs/spec/corpus-upload.v1.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "ACPI 的 HEST 表解了哪些欄位？",
+   "expect_source": "README.md"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "i7-12700K 的規格是什麼？",
+   "expect_source": "hw_model（Alder Lake 表）",
+   "note": "2026-10-31 新增：型號查表路徑（entities.db hw_model）"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "GTX 1080 Ti 幾 CUDA 核心？",
+   "expect_source": "hw_model（GeForce 10 series）"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "Ryzen 9 7950X3D 幾核心幾執行緒？",
+   "expect_source": "hw_model（Zen 4）"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "RX 7900 XTX 的顯存是多少？",
+   "expect_source": "hw_model（Radeon RX 7000 series）"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "EPYC 9654 幾核心？",
+   "expect_source": "hw_model（Epyc）"
+  },
+  {
+   "lang": "en",
+   "q": "What is the TDP of the Core i5-12400F?",
+   "expect_source": "hw_model"
+  }
+ ],
+ "out_domain": [
+  {
+   "lang": "zh-Hant",
+   "q": "現在幾點？"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "今天台北天氣如何？"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "幫我寫一首關於秋天的詩。"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "今天股市怎麼樣？"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "推薦一台兩萬塊以內的筆電。"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "什么是量子力学？"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "如何減肥？"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "推薦好吃的餐廳。"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "幫我寫一段 Python 快速排序。"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "帮我订一张明天去上海的机票。"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "苹果公司的市值是多少？"
+  },
+  {
+   "lang": "en",
+   "q": "How tall is Mount Everest?"
+  },
+  {
+   "lang": "en",
+   "q": "Who won the 2018 World Cup?"
+  },
+  {
+   "lang": "en",
+   "q": "Write me a cover letter for a marketing job."
+  },
+  {
+   "lang": "en",
+   "q": "What is the capital of Australia?"
+  },
+  {
+   "lang": "en",
+   "q": "Translate 'good morning' into Japanese."
+  },
+  {
+   "lang": "en",
+   "q": "Give me a recipe for beef noodle soup."
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "這台電腦現在 CPU 幾度？"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "我的電腦配置是什麼？"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "這台電腦的顯示卡是哪一張？"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "我这台电脑的内存有多少？"
+  },
+  {
+   "lang": "en",
+   "q": "What are my PC specs?"
+  },
+  {
+   "lang": "en",
+   "q": "How hot is my CPU right now?"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "曦覽會不會上傳我的資料？",
+   "expect_source": "README.md",
+   "note": "改列 out_domain：現有語料查不到這段話（實測 answerability 不足），拒答才是對的行為"
+  },
+  {
+   "lang": "zh-Hans",
+   "q": "三源对账是什么意思？",
+   "expect_source": "README.zh-CN.md",
+   "note": "改列 out_domain：現有語料查不到這段話（實測 answerability 不足），拒答才是對的行為"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "怎麼用查詢語言篩選韌體安全類的事實？",
+   "expect_source": "docs/spec/query-language.v1.md",
+   "note": "改列 out_domain：現有語料查不到這段話（實測 answerability 不足），拒答才是對的行為"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "曦覽的官方網站是哪一個網址？",
+   "expect_source": "README.md",
+   "note": "改列 out_domain：現有語料查不到這段話（實測 answerability 不足），拒答才是對的行為"
+  },
+  {
+   "lang": "zh-Hant",
+   "q": "SPD 是從哪條路徑讀的？",
+   "expect_source": "WHITEPAPER.md",
+   "note": "改列 out_domain：現有語料查不到這段話（實測 answerability 不足），拒答才是對的行為"
+  }
+ ]
+}

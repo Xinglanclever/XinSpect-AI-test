@@ -1,0 +1,30 @@
+# 不進 repo 的東西
+*.gguf
+*.zip
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# 訓練產物與快取
+train/out*/
+train/merged*/
+models/
+tools/wheels/
+tools/llamacpp/
+**/__pycache__/
+*.pyc
+.venv/
+artifacts/scratch/
+
+# 語料與索引（授權不同，且體積大）
+corpus/*.db
+corpus/raw-fetched/
+corpus/wiki-*/
+rag/index/
+
+# 編輯器／系統
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
